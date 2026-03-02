@@ -31,7 +31,7 @@ const portfolioModule = {
             completion_date: '2024-01-15T00:00:00.000Z',
             is_featured: true,
             status: 'completed',
-            image_url: 'images/img1.jpg',
+            image_url: 'images/img1.JPG',
         },
         {
             id: '2',
@@ -50,7 +50,7 @@ const portfolioModule = {
             completion_date: '2023-11-30T00:00:00.000Z',
             is_featured: true,
             status: 'completed',
-            image_url: 'images/img3.jpg'
+            image_url: 'images/img3.JPG',
         },
         {
             id: '3',
@@ -69,7 +69,7 @@ const portfolioModule = {
             completion_date: '2023-05-28T00:00:00.000Z',
             is_featured: false,
             status: 'completed',
-            image_url: 'images/img4.png'
+            image_url: 'images/img4.PNG'
         },
         {
             id: '4',
