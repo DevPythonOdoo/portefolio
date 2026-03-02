@@ -1956,3 +1956,11 @@ button {
         height: 350px;
     }
 }
+
+portfolio-note {
+    font-size: 14px;
+    color: var(--light-gray);
+    margin-top: 70px;
+    font-style: italic;
+    padding-left: 100px;
+}
