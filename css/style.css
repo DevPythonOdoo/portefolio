@@ -556,8 +556,8 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 0;
-    margin-left: 0;
+    padding-left: -150px;
+    margin-left: -120px;
 }
 
 .profile-photo {
@@ -628,6 +628,58 @@ button {
     z-index: -1;
     opacity: 0.3;
     animation: pulse 2s infinite;
+}
+
+/* Responsive pour la photo de profil */
+@media (max-width: 1024px) {
+    .code-photo-container {
+        grid-template-columns: 1fr; /* Passe en colonne sur tablette */
+        gap: 30px;
+    }
+    
+    .profile-photo-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .profile-image {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .code-photo-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .profile-photo-container {
+        max-width: 350px;
+    }
+    
+    .profile-image {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-photo-container {
+        max-width: 280px;
+    }
+    
+    .profile-image {
+        height: 300px;
+    }
+    
+    .photo-caption p {
+        font-size: 14px;
+    }
+    
+    .photo-badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }
 
 @keyframes pulse {
