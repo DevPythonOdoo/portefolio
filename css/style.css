@@ -262,6 +262,10 @@ button {
     font-size: 24px;
     font-weight: 800;
     color: var(--white);
+    background: var(--primary-black); /* Ajouter un fond */
+    padding: 5px 15px; /* Ajouter du padding */
+    border-radius: var(--border-radius-small); /* Arrondir les coins */
+    display: inline-block; /* Important pour que le padding fonctionne */
 }
 
 .nav-menu {
@@ -662,7 +666,7 @@ button {
         height: 350px;
     }
 }
-
+/* Responsive pour la photo de profil */
 @media (max-width: 480px) {
     .profile-photo-container {
         max-width: 280px;
