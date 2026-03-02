@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide de Personnalisation - Portfolio Expert Odoo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .guide-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 40px;
+            background: var(--secondary-black);
+            border-radius: var(--border-radius-large);
+        }
+        
+        .guide-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--tertiary-black);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-orange);
+        }
+        
+        .guide-title {
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .guide-step {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: var(--border-radius-small);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .code-block {
+            background: var(--primary-black);
+            padding: 20px;
+            border-radius: var(--border-radius-small);
+            font-family: monospace;
+            color: var(--primary-orange);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <h1>🎯 Guide de Personnalisation</h1>
+        <p class="section-description">Personnalisez votre portfolio Expert Odoo en quelques étapes simples</p>
+
+        <div class="guide-section">
+            <h2 class="guide-title">1. 📸 Ajouter votre photo professionnelle</h2>
+            <div class="guide-step">
+                <span class="step-number">1</span>
+                <strong>Option recommandée : Formulaire d'upload</strong>
+                <p>Ouvrez <code>upload-photo.html</code> et suivez les instructions pour uploader votre photo.</p>
+                <a href="upload-photo.html" class="btn btn-primary">Uploader ma photo</a>
+            </div>
+            
+            <div class="guide-step">
+                <span class="step-number">2</span>
+                <strong>Option alternative : Remplacement direct</strong>
+                <p>Remplacez le fichier <code>images/ma-photo-profil.jpg</code> par votre photo.</p>
+            </div>
+            
+            <div class="guide-step">
+                <span class="step-number">3</span>
+                <strong>Rappel de la pose :</strong>
+                <ul>
+                    <li>Bras reposant sur le dossier d'une chaise</li>
+                    <li>Pieds croisés de manière naturelle</li>
+                    <li>Expression professionnelle et accueillante</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2 class="guide-title">2. 📝 Personnaliser vos informations</h2>
+            
+            <div class="guide-step">
+                <span class="step-number">1</span>
+                <strong>Titre et méta-informations</strong>
+                <div class="code-block">
+&lt;title&gt;Expert Odoo - Votre Nom - Développement &amp; Formation ERP&lt;/title&gt;
+&lt;meta name="description" content="Expert Odoo certifié - Votre spécialité"&gt;
+&lt;meta name="author" content="Votre Nom"&gt;
+                </div>
+            </div>
+            
+            <div class="guide-step">
+                <span class="step-number">2</span>
+                <strong>Section Hero (lignes 54-61)</strong>
+                <div class="code-block">
+&lt;h1 class="hero-title"&gt;
+    Développement &amp; Personnalisation
+    &lt;span class="highlight"&gt;Odoo&lt;/span&gt; sur Mesure
+&lt;/h1&gt;
+&lt;p class="hero-description"&gt;
+    Je transforme votre système de gestion intégré en solution d'entreprise puissante.
+    Expert en développement, personnalisation de modules et formation ERP Odoo.
+&lt;/p&gt;
+                </div>
+            </div>
+            
+            <div class="guide-step">
+                <span class="step-number">3</span>
+                <strong>Coordonnées de contact (lignes 390-409)</strong>
+                <div class="code-block">
+&lt;p&gt;contact@votre-domaine.fr&lt;/p&gt;
+&lt;p&gt;+33 6 XX XX XX XX&lt;/p&gt;
+&lt;p&gt;Votre ville - Disponible à distance&lt;/p&gt;
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2 class="guide-title">3. 🎨 Personnaliser les couleurs</h2>
+            <p>Modifiez les variables CSS dans <code>css/style.css</code> :</p>
+            <div class="code-block">
+:root {
+    /* Vos couleurs personnalisées */
+    --primary-orange: #ff6b35;    /* Votre orange */
+    --primary-blue: #1565c0;        /* Votre bleu */
+    --primary-black: #0a0a0a;      /* Votre noir */
+}
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2 class="guide-title">4. 📊 Ajouter vos projets</h2>
+            <p>Ajoutez vos projets via l'API RESTful ou modifiez directement dans <code>js/portfolio.js</code></p>
+            <a href="index.html" class="btn btn-secondary">Voir mon portfolio</a>
+        </div>
+
+        <div class="guide-section">
+            <h2 class="guide-title">5. 🚀 Déployer votre site</h2>
+            <p>Une fois personnalisé, rendez-vous sur l'onglet <strong>Publish</strong> pour mettre votre site en ligne !</p>
+            
+            <div class="action-buttons">
+                <a href="index.html" class="btn btn-primary">Voir mon portfolio</a>
+                <a href="upload-photo.html" class="btn btn-secondary">Uploader ma photo</a>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2 class="guide-title">💡 Astuces Professionnelles</h2>
+            <ul>
+                <li><strong>Photo :</strong> Investissez dans une photo professionnelle, c'est votre première impression</li>
+                <li><strong>Textes :</strong> Utilisez un vocabulaire technique mais accessible à vos clients</li>
+                <li><strong>Projets :</strong> Montrez vos réalisations les plus impressionnantes en premier</li>
+                <li><strong>Contact :</strong> Répondez rapidement aux demandes pour maximiser les conversions</li>
+                <li><strong>SEO :</strong> Utilisez des mots-clés comme "Expert Odoo", "Développement Odoo", "Consultant ERP"</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

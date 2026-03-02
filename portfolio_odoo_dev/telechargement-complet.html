@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📥 Téléchargement du Portfolio - Expert Odoo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 50px;
+        }
+        
+        .icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b35, #1565c0, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: gradient 3s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #cccccc;
+            margin-bottom: 30px;
+        }
+        
+        .content {
+            margin-bottom: 40px;
+        }
+        
+        .step {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: left;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: #ff6b35;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .step h3 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            font-size: 22px;
+            padding-left: 20px;
+        }
+        
+        .step p {
+            color: #dddddd;
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .file-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+        
+        .file-type {
+            color: #999999;
+            font-size: 14px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.3);
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #1565c0, #1976d2);
+            box-shadow: 0 8px 30px rgba(21, 101, 192, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 12px 40px rgba(21, 101, 192, 0.4);
+        }
+        
+        .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            color: #ffc107;
+            font-size: 14px;
+            text-align: left;
+        }
+        
+        .warning::before {
+            content: "⚠️";
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        .success {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            color: #4caf50;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .success::before {
+            content: "✅";
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .title {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .step {
+                padding: 25px 20px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 16px;
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">📦</div>
+            <h1 class="title">Portfolio Expert Odoo</h1>
+            <p class="subtitle">
+                Votre portfolio professionnel est prêt !<br>
+                Suivez ces étapes pour télécharger et utiliser vos fichiers.
+            </p>
+        </div>
+        
+        <div class="content">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>📁 Créer votre dossier</h3>
+                <p>Créez un nouveau dossier sur votre ordinateur :</p>
+                <div class="file-list">
+                    <div class="file-item">
+                        <span class="file-name">📁 portfolio-expert-odoo</span>
+                        <span class="file-type">Sur votre Bureau</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>📋 Copier tous les fichiers</h3>
+                <p>Copiez ces fichiers dans votre nouveau dossier :</p>
+                <div class="file-list">
+                    <div class="file-item">
+                        <span class="file-name">index.html</span>
+                        <span class="file-type">Page principale</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">upload-photo.html</span>
+                        <span class="file-type">Formulaire photo</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">guide-personnalisation.html</span>
+                        <span class="file-type">Guide d'utilisation</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">telecharger-portfolio.html</span>
+                        <span class="file-type">Page de téléchargement</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">css/</span>
+                        <span class="file-type">Dossier des styles</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">js/</span>
+                        <span class="file-type">Dossier JavaScript</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">images/</span>
+                        <span class="file-type">Dossier des images</span>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">README.md</span>
+                        <span class="file-type">Documentation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>📸 Personnaliser votre photo</h3>
+                <p>Ouvrez <strong>upload-photo.html</strong> et suivez les instructions pour ajouter votre photo professionnelle.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>📝 Modifier vos informations</h3>
+                <p>Ouvrez <strong>guide-personnalisation.html</strong> et suivez le guide pour personnaliser votre portfolio.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>🚀 Tester votre portfolio</h3>
+                <p>Ouvrez <strong>index.html</strong> dans votre navigateur pour voir le résultat final.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3>📤 Déployer en ligne</h3>
+                <p>Utilisez l'onglet <strong>Publish</strong> ou déployez sur GitHub Pages, Netlify ou Vercel.</p>
+            </div>
+        </div>
+        
+        <div class="success">
+            ✅ Votre portfolio Expert Odoo professionnel est maintenant prêt !
+        </div>
+        
+        <div class="warning">
+            ⚠️ Important : Ce portfolio utilise des API RESTful pour certaines fonctionnalités. En production, vous devrez configurer un backend ou utiliser des services tiers.
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <button class="btn" onclick="window.open('index.html', '_blank')">
+                🌐 Voir mon Portfolio
+            </button>
+            <button class="btn btn-secondary" onclick="window.open('upload-photo.html', '_blank')">
+                📸 Uploader ma Photo
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Animation de l'icône
+        setInterval(() => {
+            document.querySelector('.icon').style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                document.querySelector('.icon').style.transform = 'scale(1)';
+            }, 200);
+        }, 2000);
+        
+        // Message de succès après 3 secondes
+        setTimeout(() => {
+            document.querySelector('.success').style.display = 'block';
+        }, 3000);
+    </script>
+</body>
+</html>

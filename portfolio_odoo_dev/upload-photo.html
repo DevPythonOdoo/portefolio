@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader votre photo de profil - Expert Odoo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .upload-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            background: var(--secondary-black);
+            border-radius: var(--border-radius-large);
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--primary-orange);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .upload-area:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: var(--accent-orange);
+        }
+        
+        .upload-area.dragover {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--primary-orange);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+        }
+        
+        .upload-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .upload-hint {
+            color: var(--light-gray);
+            font-size: 14px;
+        }
+        
+        .preview-container {
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .upload-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .instructions {
+            background: var(--tertiary-black);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+        
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .instructions li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Uploader votre photo de profil</h1>
+        <p class="section-description">Ajoutez votre photo professionnelle pour personnaliser votre portfolio</p>
+        
+        <div class="instructions">
+            <h3>Instructions pour la photo :</h3>
+            <ul>
+                <li>Position : bras reposant sur un dossier de chaise, pieds croisés</li>
+                <li>Format : JPG, PNG ou WebP</li>
+                <li>Taille recommandée : 400x500 pixels minimum</li>
+                <li>Taille maximale : 5MB</li>
+                <li>Qualité professionnelle et éclairage naturel</li>
+            </ul>
+        </div>
+        
+        <div class="upload-area" id="upload-area">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <div class="upload-text">Cliquez ici ou glissez votre photo</div>
+            <div class="upload-hint">Format acceptés : JPG, PNG, WebJ (max 5MB)</div>
+        </div>
+        
+        <input type="file" id="file-input" class="file-input" accept="image/jpeg,image/jpg,image/png,image/webp">
+        
+        <div class="preview-container" id="preview-container">
+            <h3>Aperçu :</h3>
+            <img id="preview-image" class="preview-image" alt="Aperçu">
+        </div>
+        
+        <div class="upload-actions" id="upload-actions" style="display: none;">
+            <button class="btn btn-secondary" id="cancel-btn">Annuler</button>
+            <button class="btn btn-primary" id="upload-btn">Uploader la photo</button>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImage = document.getElementById('preview-image');
+        const uploadActions = document.getElementById('upload-actions');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+
+        let selectedFile = null;
+
+        // Clic sur la zone d'upload
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag & drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        // Sélection de fichier
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            // Vérification du type de fichier
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                alert('Format de fichier non supporté. Veuillez utiliser JPG, PNG ou WebP.');
+                return;
+            }
+
+            // Vérification de la taille
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Le fichier est trop volumineux. Taille maximale : 5MB.');
+                return;
+            }
+
+            selectedFile = file;
+            
+            // Affichage de l'aperçu
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewContainer.style.display = 'block';
+                uploadActions.style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Bouton annuler
+        cancelBtn.addEventListener('click', () => {
+            resetUpload();
+        });
+
+        // Bouton uploader
+        uploadBtn.addEventListener('click', () => {
+            if (selectedFile) {
+                uploadFile(selectedFile);
+            }
+        });
+
+        function resetUpload() {
+            selectedFile = null;
+            fileInput.value = '';
+            previewContainer.style.display = 'none';
+            uploadActions.style.display = 'none';
+        }
+
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('photo', file);
+
+            // Simulation de l'upload - dans un environnement réel, cela serait envoyé au serveur
+            uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Upload en cours...';
+            uploadBtn.disabled = true;
+
+            setTimeout(() => {
+                // Simulation réussie
+                alert('Photo uploadée avec succès! Le fichier a été sauvegardé sous images/ma-photo-profil.jpg');
+                
+                // Créer et télécharger automatiquement l'image
+                const link = document.createElement('a');
+                link.href = previewImage.src;
+                link.download = 'ma-photo-profil.jpg';
+                link.click();
+                
+                // Rediriger vers le portfolio
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

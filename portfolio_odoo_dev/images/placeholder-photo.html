@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Placeholder - Expert Odoo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .placeholder-container {
+            width: 400px;
+            height: 500px;
+            background: linear-gradient(135deg, #ff6b35 0%, #1565c0 50%, #ff6b35 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .placeholder-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                transparent 70%);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .placeholder-icon {
+            font-size: 80px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            z-index: 1;
+        }
+        
+        .placeholder-title {
+            font-size: 24px;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 15px;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .placeholder-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        .placeholder-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .placeholder-instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .pose-indicator {
+            position: absolute;
+            background: rgba(255, 107, 53, 0.8);
+            border-radius: 50%;
+            animation: pulse-indicator 2s infinite;
+        }
+        
+        .pose-indicator.arm {
+            top: 150px;
+            right: 50px;
+            width: 60px;
+            height: 60px;
+        }
+        
+        .pose-indicator.feet {
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+            border-radius: 40px;
+        }
+        
+        @keyframes pulse-indicator {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="placeholder-container">
+        <div class="placeholder-badge">Photo Requise</div>
+        
+        <div class="pose-indicator arm"></div>
+        <div class="pose-indicator feet"></div>
+        
+        <div class="placeholder-icon">
+            📸
+        </div>
+        
+        <div class="placeholder-title">
+            Votre Photo
+            <br>Professionnelle
+        </div>
+        
+        <div class="placeholder-subtitle">
+            Remplacez cette image par votre photo<br>
+            avec la pose demandée :<br><br>
+            Bras sur le dossier<br>
+            Pieds croisés
+        </div>
+        
+        <div class="placeholder-instructions">
+            <strong>Instructions :</strong><br>
+            1. Prenez une photo avec votre bras reposant sur le dossier d'une chaise<br>
+            2. Croisez vos pieds de manière naturelle<br>
+            3. Gardez une posture professionnelle et détendue<br>
+            4. Éclairage naturel recommandé
+        </div>
+    </div>
+</body>
+</html>

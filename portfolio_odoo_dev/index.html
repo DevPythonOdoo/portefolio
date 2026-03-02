@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Odoo - Développement & Formation ERP</title>
+    <meta name="description" content="Expert développement Odoo, personnalisation de modules, formation ERP. Solutions sur mesure pour optimiser votre système de gestion intégré.">
+    <meta name="keywords" content="Odoo, ERP, développement, personnalisation, formation, consultant Odoo">
+    <meta name="author" content="Votre Nom - Expert Odoo">
+   
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Expert Odoo - Développement & Formation ERP">
+    <meta property="og:description" content="Solutions Odoo sur mesure : développement, personnalisation et formation ERP">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Odoo<span class="highlight">DEV</span></h2>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#accueil" class="nav-link">Accueil</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#expertise" class="nav-link">Expertise</a>
+                <a href="#portfolio" class="nav-link">Réalisations</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Expert Odoo Certifié</span>
+                </div>
+                <h1 class="hero-title">
+                    Développement & Personnalisation
+                    <span class="highlight">Odoo</span> sur Mesure
+                </h1>
+                <p class="hero-description">
+                    Je transforme votre système de gestion intégré en solution d'entreprise puissante. 
+                    Expert en développement, personnalisation de modules et formation ERP Odoo.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Projets Réalisés</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Heures de Formation</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Clients Satisfaits</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Démarrer un Projet</a>
+                    <a href="#services" class="btn btn-secondary">Voir mes Services</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-photo-container">
+                    <!-- Bloc de code original -->
+                    <div class="code-animation">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code><span class="code-keyword">class</span> <span class="code-class">OdooModule</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):
+        self.name = <span class="code-string">"Custom Module"</span>
+        self.version = <span class="code-string">"17.0"</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">install</span>(self):
+        <span class="code-comment"># Installation personnalisée</span>
+        <span class="code-keyword">return</span> <span class="code-boolean">True</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">configure</span>(self):
+        <span class="code-comment"># Configuration avancée</span>
+        <span class="code-keyword">pass</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">validate</span>(self):
+        <span class="code-comment"># Validation des données</span>
+        <span class="code-keyword">return</span> <span class="code-boolean">True</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Photo de profil à côté -->
+                    <div class="profile-photo-container">
+                        <div class="profile-photo">
+                            <img src="images/image_acceuil.jpeg" alt="Photo de Profil" class="profile-image">
+                            <!--<iframe src="images/KD.jpg" class="profile-image" frameborder="0"></iframe> -->
+                            <div class="photo-overlay">
+                                <span class="photo-badge">GOHI BI XAVIER</span>
+                            </div>
+                        </div>
+                        <div class="photo-caption">
+                            <p>Expert en développement et personnalisation Odoo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Services Professionnels</span>
+                <h2 class="section-title">Solutions Odoo Complètes</h2>
+                <p class="section-description">
+                    Je propose des services complets de développement et personnalisation Odoo 
+                    pour optimiser vos processus métiers.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Développement de Modules</h3>
+                    <p>Création de modules Odoo personnalisés selon vos besoins spécifiques. Intégration complète avec l'architecture Odoo.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>Modules sur mesure</li>
+                        <li><i class="fas fa-check"></i>Intégration ERP</li>
+                        <li><i class="fas fa-check"></i>Tests unitaires</li>
+                        <li><i class="fas fa-check"></i>Documentation technique</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">XML</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Personnalisation Avancée</h3>
+                    <p>Adaptation des modules existants, création de vues personnalisées et workflows automatisés.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>Vues personnalisées</li>
+                        <li><i class="fas fa-check"></i>Workflows automatisés</li>
+                        <li><i class="fas fa-check"></i>Champs personnalisés</li>
+                        <li><i class="fas fa-check"></i>Reporting QWeb</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">QWeb</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Formation & Accompagnement</h3>
+                    <p>Formation complète sur l'utilisation d'Odoo, transfert de compétences et support continu.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>Formation utilisateurs</li>
+                        <li><i class="fas fa-check"></i>Formation administrateurs</li>
+                        <li><i class="fas fa-check"></i>Support technique</li>
+                        <li><i class="fas fa-check"></i>Documentation utilisateur</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">Pédagogie</span>
+                        <span class="tech-tag">Support</span>
+                        <span class="tech-tag">Documentation</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Migrations & Mises à jour</h3>
+                    <p>Migration de versions antérieures vers les dernières versions Odoo avec préservation des données.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>Migration de versions</li>
+                        <li><i class="fas fa-check"></i>Préservation des données</li>
+                        <li><i class="fas fa-check"></i>Tests de compatibilité</li>
+                        <li><i class="fas fa-check"></i>Rollback sécurisé</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">Migration</span>
+                        <span class="tech-tag">Tests</span>
+                        <span class="tech-tag">Sécurité</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>Intégrations API</h3>
+                    <p>Connexion d'Odoo avec d'autres systèmes via API REST, webhooks et services tiers.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>API REST</li>
+                        <li><i class="fas fa-check"></i>Webhooks</li>
+                        <li><i class="fas fa-check"></i>Connecteurs tiers</li>
+                        <li><i class="fas fa-check"></i>Synchronisation bidirectionnelle</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">Webhooks</span>
+                        <span class="tech-tag">JSON</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Optimisation & Performance</h3>
+                    <p>Amélioration des performances, audit de base de données et optimisation des requêtes.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>Audit de performance</li>
+                        <li><i class="fas fa-check"></i>Optimisation SQL</li>
+                        <li><i class="fas fa-check"></i>Caching intelligent</li>
+                        <li><i class="fas fa-check"></i>Monitoring</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">Performance</span>
+                        <span class="tech-tag">Monitoring</span>
+                        <span class="tech-tag">Optimisation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="expertise">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Expertise Technique</span>
+                <h2 class="section-title">Maîtrise Complète d'Odoo</h2>
+                <p class="section-description">
+                    Expertise approfondie sur toute la stack technologique Odoo 
+                    et ses différents modules fonctionnels.
+                </p>
+            </div>
+            <div class="expertise-content">
+                <div class="expertise-categories">
+                    <div class="expertise-category">
+                        <h3><i class="fas fa-layer-group"></i> Modules Fonctionnels</h3>
+                        <div class="module-tags">
+                            <span class="module-tag">CRM</span>
+                            <span class="module-tag">Ventes</span>
+                            <spaan class="module-tag">POS</spaan>
+                            <spaan class="module-tag">Inventaire</spaan>
+                            <span class="module-tag">Achat</span>
+                            <span class="module-tag">Stock</span>
+                            <span class="module-tag">Comptabilité</span>
+                            <span class="module-tag">RH</span>
+                            <span class="module-tag">Manufacturing</span>
+                            <span class="module-tag">eCommerce</span>
+                            <span class="module-tag">Projet</span>
+                            <span class="module-tag">Helpdesk</span>
+                            <span class="module-tag">Et bien d'autres</span>
+                        </div>
+                    </div>
+
+                    <div class="expertise-category">
+                        <h3><i class="fas fa-code"></i> Stack Technique</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <i class="fab fa-python"></i>
+                                <span>Python</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-database"></i>
+                                <span>PostgreSQL</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-js"></i>
+                                <span>JavaScript</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-html5"></i>
+                                <span>XML/QWeb</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expertise-category">
+                        <h3><i class="fas fa-tools"></i> Outils & Méthodologies</h3>
+                        <div class="tools-grid">
+                            <div class="tool-item">
+                                <i class="fab fa-git-alt"></i>
+                                <span>Git</span>
+                            </div>
+                            <div class="tool-item">
+                                <i class="fas fa-terminal"></i>
+                                <span>Linux</span>
+                            </div>
+                            <div class="tool-item">
+                                <i class="fas fa-bug"></i>
+                                <span>Tests Unitaires</span>
+                            </div>
+                            <div class="tool-item">
+                                <i class="fas fa-cogs"></i>
+                                <span>CI/CD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="certifications">
+                    <h3><i class="fas fa-certificate"></i> Certifications & Formations</h3>
+                    <div class="cert-grid">
+                        <div class="cert-item">
+                            <i class="fas fa-medal"></i>
+                            <h4>Odoo Certified</h4>
+                            <p>Certification officielle Odoo</p>
+                        </div>
+                        <div class="cert-item">
+                            <i class="fas fa-award"></i>
+                            <h4>Python Advanced</h4>
+                            <p>Maîtrise avancée Python</p>
+                        </div>
+                        <div class="cert-item">
+                            <i class="fas fa-trophy"></i>
+                            <h4>ERP Consultant</h4>
+                            <p>Expert en systèmes ERP</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Portfolio</span>
+                <h2 class="section-title">Projets Réalisés</h2>
+                <p class="section-description">
+                    Découvrez mes réalisations et les solutions Odoo que j'ai 
+                    implémentées pour mes clients.
+                </p>
+            </div>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="development">Développement</button>
+                <button class="filter-btn" data-filter="customization">Personnalisation</button>
+                <button class="filter-btn" data-filter="integration">Intégration</button>
+                <button class="filter-btn" data-filter="training">Formation</button>
+            </div>
+            <div class="portfolio-grid" id="portfolio-grid">
+                <!-- Portfolio items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Contact</span>
+                <h2 class="section-title">Discutons de votre Projet</h2>
+                <p class="section-description">
+                    Prêt à transformer votre système de gestion ? Contactez-moi pour 
+                    discuter de vos besoins et obtenir un devis personnalisé.
+                </p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>xaviergohibi@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Téléphone</h3>
+                            <p>+225 05 46 09 56 03</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Localisation</h3>
+                            <p>Abidjan, Côte d'Ivoire</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Disponibilité</h3>
+                            <p>Disponible à tout moment</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form" >
+                    <input type="hidden" name="access_key" value="84d40f6d-2b4d-42a9-953c-82431c3fdbb4">
+                    <!-- Anti-spam (honeypot) -->
+                    <!-- <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    <input type="hidden" name="honeypot" style="display: none;"> -->
+                    
+                    <!-- Redirection après envoi (optionnel) -->
+                    <!-- <input type="hidden" name="redirect" value="http://127.0.0.1:5500/portfolio_odoo_dev/index.html#"> -->
+                    
+                    <!-- Pour recevoir une copie (optionnel) -->
+                    <!-- <input type="hidden" name="cc" value="xaviergohibi@gmail.com"> -->
+                    
+                    <!-- Pour avoir un reply-to avec l'email du contact -->
+                    <input type="hidden" name="replyto" value="email">
+                    <div class="form-group">
+                        <label for="name">Nom complet *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email professionnel *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Entreprise</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Sujet *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Sélectionnez un sujet</option>
+                            <option value="development">Développement de module</option>
+                            <option value="customization">Personnalisation</option>
+                            <option value="training">Formation</option>
+                            <option value="consultation">Consultation</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="message">Message détaillé *</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre projet, vos besoins spécifiques et vos objectifs..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <span class="checkmark"></span>
+                            J'accepte que mes données soient utilisées pour me recontacter dans le cadre de ma demande *
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-paper-plane"></i>
+                        Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h3>Odoo<span class="highlight">Dev</span></h3>
+                        <p>Expert en développement et personnalisation Odoo</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/feed/" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:xaviergohibi@gmail.com" class="social-link" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Développement</a></li>
+                        <li><a href="#services">Personnalisation</a></li>
+                        <li><a href="#services">Formation</a></li>
+                        <li><a href="#services">Migration</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Expertise</h4>
+                    <ul class="footer-links">
+                        <li><a href="#expertise">Modules CRM</a></li>
+                        <li><a href="#expertise">Comptabilité</a></li>
+                        <li><a href="#expertise">Stock & Logistique</a></li>
+                        <li><a href="#expertise">Manufacturing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Demander un devis</a></li>
+                        <li><a href="#contact">Support technique</a></li>
+                        <li><a href="#contact">Formation</a></li>
+                        <li><a href="#contact">Consultation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Expert Odoo. Tous droits réservés.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">CGU</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <!-- ===== Chat Widget ===== -->
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-button" id="chat-button">
+            <i class="fas fa-comments"></i>
+            <span class="chat-notification" id="chat-notification">1</span>
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <i class="fas fa-headset"></i>
+                    <div>
+                        <h4>Expert Odoo</h4>
+                        <span>En ligne</span>
+                    </div>
+                </div>
+                <button class="chat-close" id="chat-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="chat-message chat-message-bot">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Bonjour ! 👋 Je suis Expert Odoo. Comment puis-je vous aider aujourd'hui ?</p>
+                        <span class="message-time">Maintenant</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Tapez votre message...">
+                <button class="chat-send" id="chat-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Project Modal ===== -->
+    <div class="modal" id="project-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Fermer">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+   
+    
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+     <script src="js/utils.js"></script>
+     <script src="js/portfolio.js"></script>
+     <script src="js/contact.js"></script>
+     <script src="js/chat.js"></script>
+</body>
+</html>
