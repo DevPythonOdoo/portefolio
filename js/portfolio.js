@@ -3,10 +3,22 @@
  * Gestion dynamique du portfolio et des projets
  */
 
+const sanitizeHTML = (str) => {
+    if (!str) return '';
+    const el = document.createElement('div');
+    el.textContent = str;
+    return el.innerHTML;
+};
+
+const truncate = (str, len) => {
+    if (!str) return '';
+    return str.length > len ? str.substring(0, len).trimEnd() + '...' : str;
+};
+
 const portfolioModule = {
     // Configuration
     config: {
-        apiEndpoint: '/tables/portfolio_projects',
+        apiEndpoint: '/api/portfolio/projects',
         itemsPerPage: 6,
         currentPage: 1,
         currentFilter: 'all'
@@ -127,6 +139,25 @@ const portfolioModule = {
             is_featured: true,
             status: 'completed',
             image_url: 'images/img5.jpg'
+        },
+        {
+            id: '7',
+            title: 'Application Mobile KDM',
+            category: 'development',
+            description: 'Développement d\'une application mobile cross-platform avec Flutter pour KDM, connectée à Odoo via API REST. L\'application permet la gestion des commandes, le suivi des livraisons en temps réel, la consultation des stocks et la validation des paiements depuis le terrain. Interface moderne et intuitive adaptée aux besoins des livreurs et commerciaux itinérants.',
+            client_name: 'KDM',
+            client_industry: 'Distribution & Logistique',
+            project_duration: '6 mois',
+            odoo_version: '19.0',
+            modules_affected: ['Achat', 'Vente', 'Stock', 'Dépense', 'Project', 'Service sur site', 'Fabrication'],
+            technologies: ['Python', 'PostgreSQL', 'JavaScript', 'XML', 'QWeb', 'Odoo SH'],
+            results: 'Automatisation complète des processus achats, ventes et fabrication. Réduction de 40% des délais de production, traçabilité totale des matières premières et optimisation des stocks avec un taux de rupture réduit à 2%.',
+            challenge: 'L\'entreprise gérait ses opérations sur plusieurs outils déconnectés (Excel, logiciel comptable séparé, carnets de production papier), rendant le suivi des commandes, de la production et des coûts complexe et source d\'erreurs fréquentes.',
+            solution: 'Déploiement complet d\'Odoo couvrant l\'ensemble des processus métiers : achats automatisés avec règles de réapprovisionnement, gestion des ventes multi-devises, suivi de production par ordres de fabrication, gestion des services sur site avec planning intégré, et centralisation de toutes les dépenses dans un tableau de bord analytique.',
+            completion_date: '2025-02-28T00:00:00.000Z',
+            is_featured: true,
+            status: 'completed',
+            image_url: 'images/KD.jpg'
         }
     ],
 
@@ -249,70 +280,41 @@ const portfolioModule = {
         projectDiv.className = 'portfolio-item';
         projectDiv.setAttribute('data-category', project.category);
         
-        // Formater la date
-        const completionDate = new Date(project.completion_date);
-        const formattedDate = completionDate.toLocaleDateString('fr-FR', {
-            year: 'numeric',
-            month: 'long'
-        });
+        const safeTitle = sanitizeHTML(project.title);
+        const safeClient = sanitizeHTML(project.client_name);
+        const safeImg = sanitizeHTML(project.image_url);
+        const safeDesc = sanitizeHTML(truncate(project.description, 150));
+        const safeId = sanitizeHTML(project.id);
+        
+        const maxTags = 4;
+        const tags = project.modules_affected.slice(0, maxTags)
+            .map(m => `<span class="portfolio-tag">${sanitizeHTML(m)}</span>`)
+            .join('');
         
         projectDiv.innerHTML = `
             <div class="portfolio-image-wrapper">
-                <img src="${project.image_url}" 
-                     alt="${project.title}" 
+                <img src="${safeImg}" 
+                     alt="${safeTitle}" 
                      class="portfolio-image"
                      loading="lazy">
-                <div class="portfolio-overlay">
-                    <div class="portfolio-overlay-content">
-                        <h4>${project.title}</h4>
-                        <p>${project.client_name}</p>
-                        <button class="btn btn-primary btn-sm" onclick="portfolioModule.showProjectDetails('${project.id}')">
-                            Voir détails
-                        </button>
-                    </div>
-                </div>
-                ${project.is_featured ? '<div class="portfolio-badge">À la une</div>' : ''}
             </div>
             <div class="portfolio-content">
-                <div class="portfolio-tags">
-                    ${project.modules_affected.map(module => 
-                        `<span class="portfolio-tag">${module}</span>`
-                    ).join('')}
-                </div>
-                <h3 class="portfolio-title">${project.title}</h3>
-                <p class="portfolio-description">${project.description}</p>
-                <div class="portfolio-meta">
-                    <span class="portfolio-client">
-                        <i class="fas fa-building"></i>
-                        ${project.client_name}
-                    </span>
-                    <span class="portfolio-duration">
-                        <i class="fas fa-calendar"></i>
-                        ${project.project_duration}
-                    </span>
-                </div>
-                <div class="portfolio-tech">
-                    <span class="tech-label">Technologies:</span>
-                    <div class="tech-tags">
-                        ${project.technologies.map(tech => 
-                            `<span class="tech-tag">${tech}</span>`
-                        ).join('')}
-                    </div>
-                </div>
+                <div class="portfolio-tags">${tags}</div>
+                <h3 class="portfolio-title">${safeTitle}</h3>
+                <p class="portfolio-description">${safeDesc}</p>
                 <div class="portfolio-footer">
-                    <span class="portfolio-date">${formattedDate}</span>
-                    <a href="#" class="portfolio-link" onclick="portfolioModule.showProjectDetails('${project.id}')">
+                    <span class="portfolio-client">
+                        <i class="fas fa-building"></i> ${safeClient}
+                    </span>
+                    <span class="portfolio-link">
                         En savoir plus <i class="fas fa-arrow-right"></i>
-                    </a>
+                    </span>
                 </div>
             </div>
         `;
         
-        // Ajouter l'événement de clic pour la modale
-        projectDiv.addEventListener('click', (e) => {
-            if (!e.target.closest('.portfolio-overlay')) {
-                portfolioModule.showProjectDetails(project.id);
-            }
+        projectDiv.addEventListener('click', () => {
+            portfolioModule.showProjectDetails(project.id);
         });
         
         return projectDiv;
@@ -331,7 +333,6 @@ const portfolioModule = {
             portfolioModule.renderProjectModal(project);
         } catch (error) {
             console.error('Erreur lors de l\'affichage des détails:', error);
-            utils.showNotification('Erreur lors de l\'affichage des détails du projet.', 'error');
         }
     },
 
@@ -347,19 +348,22 @@ const portfolioModule = {
             day: 'numeric'
         });
         
+        const safe = (v) => sanitizeHTML(v || '');
+        
         modalBody.innerHTML = `
             <div class="project-modal-content">
                 <div class="project-modal-header">
                     <div class="project-modal-image">
-                        <img src="${project.image_url || '/api/placeholder/600/300'}" alt="${project.title}">
-                        <div class="project-modal-badge">${project.category}</div>
+                        <img src="${safe(project.image_url)}" 
+                             alt="${safe(project.title)}">
+                        <div class="project-modal-badge">${safe(project.category)}</div>
                     </div>
                     <div class="project-modal-info">
-                        <h2>${project.title}</h2>
+                        <h2>${safe(project.title)}</h2>
                         <div class="project-modal-meta">
-                            <span><i class="fas fa-building"></i> ${project.client_name}</span>
-                            <span><i class="fas fa-calendar"></i> ${project.project_duration}</span>
-                            <span><i class="fas fa-code"></i> Odoo ${project.odoo_version}</span>
+                            <span><i class="fas fa-building"></i> ${safe(project.client_name)}</span>
+                            <span><i class="fas fa-calendar"></i> ${safe(project.project_duration)}</span>
+                            <span><i class="fas fa-code"></i> Odoo ${safe(project.odoo_version)}</span>
                         </div>
                     </div>
                 </div>
@@ -367,29 +371,29 @@ const portfolioModule = {
                 <div class="project-modal-body">
                     <div class="project-modal-section">
                         <h3><i class="fas fa-info-circle"></i> Description du projet</h3>
-                        <p>${project.description}</p>
+                        <p>${safe(project.description)}</p>
                     </div>
                     
                     <div class="project-modal-section">
                         <h3><i class="fas fa-exclamation-triangle"></i> Défi rencontré</h3>
-                        <p>${project.challenge}</p>
+                        <p>${safe(project.challenge)}</p>
                     </div>
                     
                     <div class="project-modal-section">
                         <h3><i class="fas fa-lightbulb"></i> Solution mise en œuvre</h3>
-                        <p>${project.solution}</p>
+                        <p>${safe(project.solution)}</p>
                     </div>
                     
                     <div class="project-modal-section">
                         <h3><i class="fas fa-chart-line"></i> Résultats obtenus</h3>
-                        <p>${project.results}</p>
+                        <p>${safe(project.results)}</p>
                     </div>
                     
                     <div class="project-modal-section">
                         <h3><i class="fas fa-cogs"></i> Modules Odoo concernés</h3>
                         <div class="project-modal-modules">
-                            ${project.modules_affected.map(module => 
-                                `<span class="module-tag">${module}</span>`
+                            ${project.modules_affected.map(m => 
+                                `<span class="module-tag">${safe(m)}</span>`
                             ).join('')}
                         </div>
                     </div>
@@ -397,8 +401,8 @@ const portfolioModule = {
                     <div class="project-modal-section">
                         <h3><i class="fas fa-code"></i> Technologies utilisées</h3>
                         <div class="project-modal-tech">
-                            ${project.technologies.map(tech => 
-                                `<span class="tech-tag">${tech}</span>`
+                            ${project.technologies.map(t => 
+                                `<span class="tech-tag">${safe(t)}</span>`
                             ).join('')}
                         </div>
                     </div>
@@ -406,9 +410,9 @@ const portfolioModule = {
                     <div class="project-modal-footer">
                         <div class="project-modal-date">
                             <i class="fas fa-calendar-check"></i>
-                            Terminé en ${formattedDate}
+                            Terminé en ${safe(formattedDate)}
                         </div>
-                        <button class="btn btn-primary" onclick="portfolioModule.contactForSimilarProject()">
+                        <button class="btn btn-primary" data-action="contact-similar">
                             <i class="fas fa-envelope"></i>
                             Projet similaire ?
                         </button>
@@ -417,7 +421,9 @@ const portfolioModule = {
             </div>
         `;
         
-        // Afficher la modale
+        modalBody.querySelector('[data-action="contact-similar"]')
+            .addEventListener('click', () => portfolioModule.contactForSimilarProject());
+        
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     },

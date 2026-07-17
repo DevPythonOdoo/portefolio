@@ -473,20 +473,20 @@ const contactFormStyles = `
     }
     
     .field-error {
-        background: rgba(244, 67, 54, 0.1);
-        color: #f44336;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 14px;
-        margin-top: 5px;
-        border-left: 3px solid #f44336;
-        animation: slideInError 0.3s ease;
+        position: absolute;
+        bottom: -18px;
+        left: 0;
+        color: #ef4444;
+        font-size: 0.78rem;
+        font-weight: 500;
+        white-space: nowrap;
+        animation: fieldErrorIn 0.2s ease;
     }
     
-    @keyframes slideInError {
+    @keyframes fieldErrorIn {
         from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-3px);
         }
         to {
             opacity: 1;
@@ -497,15 +497,13 @@ const contactFormStyles = `
     .form-group input.error,
     .form-group select.error,
     .form-group textarea.error {
-        border-color: #f44336 !important;
-        background: rgba(244, 67, 54, 0.05);
+        border-color: #ef4444 !important;
     }
     
     .form-group input.success,
     .form-group select.success,
     .form-group textarea.success {
-        border-color: #4caf50 !important;
-        background: rgba(76, 175, 80, 0.05);
+        border-color: #22c55e !important;
     }
     
     #contact-form button[type="submit"] {

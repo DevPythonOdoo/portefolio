@@ -256,6 +256,44 @@
                         <span class="tech-tag">Optimisation</span>
                     </div>
                 </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Développement Mobile Flutter</h3>
+                    <p>Applications mobiles cross-platform avec Flutter connectées à Odoo via API REST pour la gestion en mobilité.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>Applications iOS & Android</li>
+                        <li><i class="fas fa-check"></i>Sync temps réel avec Odoo</li>
+                        <li><i class="fas fa-check"></i>Interface utilisateur moderne</li>
+                        <li><i class="fas fa-check"></i>Mode hors-ligne</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Dart</span>
+                        <span class="tech-tag">REST API</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Dashboards Django</h3>
+                    <p>Portails d'analyse et de reporting sur mesure avec Django, synchronisés avec les données Odoo.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i>Tableaux de bord interactifs</li>
+                        <li><i class="fas fa-check"></i>Export PDF & Excel</li>
+                        <li><i class="fas fa-check"></i>Authentification SSO</li>
+                        <li><i class="fas fa-check"></i>API de synchronisation</li>
+                    </ul>
+                    <div class="service-tech">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -393,10 +431,8 @@
             </div>
             <div class="portfolio-grid" id="portfolio-grid">
                 <!-- Portfolio items will be populated by JavaScript -->
-            </div> <br>
-            <span >NB: Cette liste n'est pas exhaustive. Pour plus d'informations, contactez-moi.</span>
+            </div>
         </div>
-        
     </section>
 
     <!-- Contact Section -->
@@ -449,35 +485,17 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contact-form" >
+                <form class="contact-form" id="contact-form">
                     <input type="hidden" name="access_key" value="84d40f6d-2b4d-42a9-953c-82431c3fdbb4">
-                    <!-- Anti-spam (honeypot) -->
-                    <!-- <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                    <input type="hidden" name="honeypot" style="display: none;"> -->
-                    
-                    <!-- Redirection après envoi (optionnel) -->
-                    <!-- <input type="hidden" name="redirect" value="http://127.0.0.1:5500/portfolio_odoo_dev/index.html#"> -->
-                    
-                    <!-- Pour recevoir une copie (optionnel) -->
-                    <!-- <input type="hidden" name="cc" value="xaviergohibi@gmail.com"> -->
-                    
-                    <!-- Pour avoir un reply-to avec l'email du contact -->
-                    <input type="hidden" name="replyto" value="email">
-                    <div class="form-group">
-                        <label for="name">Nom complet *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email professionnel *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Entreprise</label>
-                        <input type="text" id="company" name="company">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Téléphone</label>
-                        <input type="tel" id="phone" name="phone">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nom complet *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="subject">Sujet *</label>
@@ -490,20 +508,12 @@
                             <option value="other">Autre</option>
                         </select>
                     </div>
-                    <div class="form-group full-width">
-                        <label for="message">Message détaillé *</label>
-                        <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre projet, vos besoins spécifiques et vos objectifs..."></textarea>
-                    </div>
-                    <div class="form-group full-width">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="consent" name="consent" required>
-                            <span class="checkmark"></span>
-                            J'accepte que mes données soient utilisées pour me recontacter dans le cadre de ma demande *
-                        </label>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="4" required placeholder="Décrivez votre projet en quelques lignes..."></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-full">
-                        <i class="fas fa-paper-plane"></i>
-                        Envoyer le message
+                        Envoyer
                     </button>
                 </form>
             </div>
@@ -580,7 +590,7 @@
         <div class="chat-window" id="chat-window">
             <div class="chat-header">
                 <div class="chat-title">
-                    <i class="fas fa-headset"></i>
+                    <i class="fas fa-briefcase"></i>
                     <div>
                         <h4>Expert Odoo</h4>
                         <span>En ligne</span>
@@ -593,10 +603,10 @@
             <div class="chat-body" id="chat-body">
                 <div class="chat-message chat-message-bot">
                     <div class="message-avatar">
-                        <i class="fas fa-robot"></i>
+                        <i class="fas fa-briefcase"></i>
                     </div>
                     <div class="message-content">
-                        <p>Bonjour ! 👋 Je suis Expert Odoo. Comment puis-je vous aider aujourd'hui ?</p>
+                        <p>Bonjour, je suis l'assistant Expert Odoo. Comment puis-je vous aider ?</p>
                         <span class="message-time">Maintenant</span>
                     </div>
                 </div>

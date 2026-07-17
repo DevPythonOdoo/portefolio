@@ -753,105 +753,91 @@ button {
    =================================== */
 
 .services {
-    padding: var(--section-padding) 0;
+    padding: 100px 0;
     background: var(--secondary-black);
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
 }
 
 .service-card {
     background: var(--primary-black);
-    border-radius: var(--border-radius-large);
-    padding: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition-medium);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
-    transition: left 0.5s;
-}
-
-.service-card:hover::before {
-    left: 100%;
-}
-
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-orange);
-    border-color: var(--primary-orange);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.08);
+    border-color: rgba(255, 107, 53, 0.3);
 }
 
 .service-icon {
-    width: 70px;
-    height: 70px;
+    width: 56px;
+    height: 56px;
     background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 25px;
-    font-size: 24px;
+    margin-bottom: 20px;
+    font-size: 20px;
     color: var(--white);
-    box-shadow: var(--shadow-orange);
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: var(--white);
 }
 
 .service-card > p {
-    color: var(--light-gray);
-    margin-bottom: 25px;
-    line-height: 1.7;
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
 
 .service-features {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .service-features li {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    color: var(--lighter-gray);
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--light-gray);
+    font-size: 0.88rem;
 }
 
 .service-features i {
     color: var(--success);
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .service-tech {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
 .tech-tag {
-    background: rgba(255, 107, 53, 0.1);
+    background: rgba(255, 107, 53, 0.08);
     color: var(--primary-orange);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    border: 1px solid rgba(255, 107, 53, 0.2);
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 107, 53, 0.15);
 }
 
 /* ===================================
@@ -1060,25 +1046,27 @@ button {
    =================================== */
 
 .portfolio {
-    padding: var(--section-padding) 0;
+    padding: 100px 0;
     background: var(--secondary-black);
 }
 
 .portfolio-filters {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 60px;
+    gap: 10px;
+    margin-bottom: 40px;
     flex-wrap: wrap;
 }
 
 .filter-btn {
-    padding: 12px 24px;
+    padding: 10px 22px;
     background: transparent;
     color: var(--light-gray);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
     border-radius: 25px;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
     transition: var(--transition-fast);
 }
 
@@ -1087,87 +1075,121 @@ button {
     background: var(--primary-orange);
     color: var(--white);
     border-color: var(--primary-orange);
-    transform: translateY(-2px);
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
 }
 
 .portfolio-item {
     background: var(--primary-black);
-    border-radius: var(--border-radius-large);
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition-medium);
-    position: relative;
-    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    animation: portfolioFadeIn 0.4s ease forwards;
+}
+
+@keyframes portfolioFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .portfolio-item:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-orange);
-    border-color: var(--primary-orange);
+    border-color: rgba(255, 107, 53, 0.3);
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.08);
+}
+
+.portfolio-image-wrapper {
+    position: relative;
+    overflow: hidden;
 }
 
 .portfolio-image {
     width: 100%;
-    height: 250px;
+    height: 200px;
     object-fit: cover;
-    transition: var(--transition-medium);
+    display: block;
+    transition: transform 0.4s ease;
 }
 
 .portfolio-item:hover .portfolio-image {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .portfolio-content {
-    padding: 9px;
+    padding: 20px;
 }
 
 .portfolio-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 6px;
+    margin-bottom: 12px;
 }
 
 .portfolio-tag {
-    background: rgba(255, 107, 53, 0.1);
+    background: rgba(255, 107, 53, 0.08);
     color: var(--primary-orange);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    border: 1px solid rgba(255, 107, 53, 0.2);
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 107, 53, 0.15);
+    line-height: 1.4;
 }
 
 .portfolio-title {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     color: var(--white);
+    line-height: 1.3;
 }
 
 .portfolio-description {
+    color: var(--medium-gray);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.portfolio-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.portfolio-client {
     color: var(--light-gray);
-    margin-bottom: 20px;
-    line-height: 1.6;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .portfolio-link {
     color: var(--primary-orange);
+    font-size: 0.85rem;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     transition: var(--transition-fast);
+    text-decoration: none;
 }
 
 .portfolio-link:hover {
-    gap: 10px;
+    gap: 8px;
 }
 
 /* ===================================
@@ -1175,72 +1197,79 @@ button {
    =================================== */
 
 .contact {
-    padding: var(--section-padding) 0;
+    padding: 100px 0;
     background: var(--primary-black);
 }
 
 .contact-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 50px;
     align-items: start;
 }
 
 .contact-info {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 16px;
 }
 
 .contact-item {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 25px;
+    gap: 16px;
+    padding: 18px 20px;
     background: var(--secondary-black);
-    border-radius: var(--border-radius-large);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition-fast);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.3s ease;
 }
 
 .contact-item:hover {
-    border-color: var(--primary-orange);
-    background: rgba(255, 107, 53, 0.05);
+    border-color: rgba(255, 107, 53, 0.3);
 }
 
 .contact-icon {
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
     background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
-    font-size: 20px;
+    font-size: 16px;
     flex-shrink: 0;
 }
 
 .contact-details h3 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     color: var(--white);
 }
 
 .contact-details p {
-    color: var(--light-gray);
+    color: var(--medium-gray);
+    font-size: 0.88rem;
 }
 
 .contact-form {
     background: var(--secondary-black);
-    padding: 40px;
-    border-radius: var(--border-radius-large);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
 }
 
 .form-group {
-    margin-bottom: 25px;
+    position: relative;
+    margin-bottom: 22px;
 }
 
 .form-group.full-width {
@@ -1249,34 +1278,47 @@ button {
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--white);
+    margin-bottom: 6px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--lighter-gray);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius-small);
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
     color: var(--white);
-    font-size: 16px;
-    transition: var(--transition-fast);
+    font-size: 0.92rem;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    outline: none;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     border-color: var(--primary-orange);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 107, 53, 0.05);
+}
+
+.form-group select option {
+    background: var(--primary-black);
+    color: var(--white);
 }
 
 .form-group textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 100px;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 14px;
+    font-size: 0.95rem;
 }
 
 .checkbox-container {

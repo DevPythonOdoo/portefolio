@@ -17,15 +17,14 @@ const utils = {
 const chatWidget = {
     // Configuration
     config: {
-        apiEndpoint: '/tables/chat_messages',
-        refreshInterval: 3000, // 3 secondes
+        apiEndpoint: '/api/chat/messages',
+        refreshInterval: 3000,
         maxMessages: 50,
+        maxExchanges: 8,
         typingTimeout: 1000,
-        botName: 'Assistant Odoo',
-        botAvatar: '🤖'
+        botName: 'Expert Odoo'
     },
 
-    // État du chat
     state: {
         isOpen: false,
         isTyping: false,
@@ -33,37 +32,49 @@ const chatWidget = {
         sessionId: null,
         messages: [],
         unreadCount: 0,
-        isOnline: true
+        isOnline: true,
+        exchangeCount: 0,
+        isClosed: false
     },
 
-    // ✅ FIX 2 : Catégorie 'training' manquante (causait un crash sur les mots "formation" / "apprendre")
+    inappropriateWords: [
+        'con', 'pute', 'salope', 'enculé', 'nique', 'bâtard', 'connard',
+        'fdp', 'tg', 'va te faire', 'merde', 'putain', 'abruti', 'débile',
+        'insulte', 'insulter', 'gros mot'
+    ],
+
     botResponses: {
         greetings: [
-            "Bonjour ! Je suis l'assistant Odoo Expert. Comment puis-je vous aider aujourd'hui ?",
-            "Bonjour ! Bienvenue sur Odoo Expert. Quelles sont vos questions ?",
-            "Salut ! Je suis là pour vous aider avec vos projets Odoo. Que souhaitez-vous savoir ?"
+            "Bonjour, je suis l'assistant Expert Odoo. Comment puis-je vous renseigner ?",
+            "Bonjour et bienvenue. Je suis à votre disposition pour toute question relative à Odoo."
         ],
         services: [
             "Je propose plusieurs services : développement de modules personnalisés, personnalisation d'Odoo, formation et intégration. Quel est votre besoin ?",
             "Mes services incluent le développement sur mesure, la personnalisation des modules, les formations et les intégrations API. Que recherchez-vous ?"
         ],
         contact: [
-            "Pour me contacter, vous pouvez utiliser le formulaire de contact en bas de page. Je vous répondrai rapidement !",
-            "Je vous invite à remplir le formulaire de contact. Je vous répondrai dans les plus brefs délais."
+            "Pour me contacter, veuillez utiliser le formulaire de contact en bas de page. Je vous répondrai dans les meilleurs délais.",
+            "Je vous invite à remplir le formulaire de contact. Je traite personnellement chaque demande."
         ],
         pricing: [
-            "Les tarifs dépendent du projet. Contactez-moi via le formulaire pour un devis personnalisé gratuit.",
-            "Je propose des tarifs adaptés à chaque projet. Demandez un devis sans engagement."
+            "Les tarifs sont adaptés à chaque projet. Je vous invite à me contacter via le formulaire pour un devis personnalisé.",
+            "Chaque projet fait l'objet d'une étude personnalisée. Contactez-moi via le formulaire pour obtenir un devis."
         ],
-        // ✅ Catégorie training ajoutée
         training: [
-            "Je propose des formations Odoo adaptées à tous les niveaux. Contactez-moi via le formulaire pour en savoir plus !",
-            "Mes formations couvrent l'administration, le développement et l'utilisation quotidienne d'Odoo. Quel est votre niveau actuel ?"
+            "Je propose des formations Odoo adaptées à tous les niveaux, de l'utilisateur au développeur. Souhaitez-vous plus d'informations ?",
+            "Mes formations couvrent l'administration, le développement et l'utilisation quotidienne d'Odoo. Quel est votre besoin ?"
+        ],
+        closing: [
+            "Je vous remercie pour cet échange. Pour toute demande personnalisée, je vous invite à utiliser le formulaire de contact. Je reste à votre disposition.",
+            "Cet échange arrive à son terme. N'hésitez pas à me contacter via le formulaire pour toute question complémentaire. Bien cordialement."
+        ],
+        inappropriate: [
+            "Je vous prie de formuler votre demande de manière professionnelle. Pour toute question relative à mes services, je vous invite à utiliser le formulaire de contact.",
+            "Ce canal est dédié aux échanges professionnels. Veuillez reformuler votre message ou utiliser le formulaire de contact."
         ],
         default: [
-            "Je comprends votre question. Pour une réponse personnalisée, je vous invite à remplir le formulaire de contact.",
-            "C'est une excellente question ! Je vous répondrai en détail via le formulaire de contact.",
-            "Je serais ravi d'en discuter plus en détail. Contactez-moi via le formulaire."
+            "Je vous remercie pour votre question. Pour une réponse détaillée et personnalisée, je vous invite à remplir le formulaire de contact.",
+            "Votre demande mérite une attention particulière. Je vous invite à me contacter via le formulaire pour en discuter en détail."
         ]
     },
 
@@ -264,10 +275,9 @@ const chatWidget = {
 
         const time = utils.formatTime(message.timestamp);  // ✅ utils désormais défini
 
+        const avatarIcon = message.sender === 'bot' ? '<i class="fas fa-briefcase"></i>' : '<i class="fas fa-user"></i>';
         messageDiv.innerHTML = `
-            <div class="message-avatar">
-                ${message.sender === 'bot' ? '🤖' : '👤'}
-            </div>
+            <div class="message-avatar">${avatarIcon}</div>
             <div class="message-content">
                 <p>${chatWidget.escapeHtml(message.content)}</p>
                 <span class="message-time">${time}</span>
@@ -289,34 +299,106 @@ const chatWidget = {
         return div.innerHTML;
     },
 
-    // Générer une réponse automatique du bot
-    generateBotResponse: (userMessage) => {
-        if (chatWidget.state.isTyping) return;
+    // Vérifier si le message contient des propos inappropriés
+    containsInappropriateContent: (message) => {
+        const lower = message.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return chatWidget.inappropriateWords.some(word => lower.includes(word));
+    },
+
+    // Fermer le chat avec un message professionnel
+    closeChatWithMessage: (category) => {
+        if (chatWidget.state.isClosed) return;
+        chatWidget.state.isClosed = true;
 
         chatWidget.state.isTyping = true;
         chatWidget.showTypingIndicator();
 
-        // Analyser le message de l'utilisateur
-        const lowerMessage = userMessage.toLowerCase();
-        let responseCategory = 'default';
+        const responses = chatWidget.botResponses[category] || chatWidget.botResponses.closing;
+        const response = responses[Math.floor(Math.random() * responses.length)];
 
-        if (lowerMessage.includes('bonjour') || lowerMessage.includes('salut') || lowerMessage.includes('hello')) {
-            responseCategory = 'greetings';
-        } else if (lowerMessage.includes('service') || lowerMessage.includes('offre')) {
-            responseCategory = 'services';
-        } else if (lowerMessage.includes('prix') || lowerMessage.includes('tarif') || lowerMessage.includes('coût') || lowerMessage.includes('devis')) {
-            responseCategory = 'pricing';
-        } else if (lowerMessage.includes('contact') || lowerMessage.includes('contacter') || lowerMessage.includes('joindre')) {
-            responseCategory = 'contact';
-        } else if (lowerMessage.includes('formation') || lowerMessage.includes('apprendre') || lowerMessage.includes('cours')) {
-            responseCategory = 'training'; // ✅ La catégorie existe maintenant
+        setTimeout(() => {
+            chatWidget.hideTypingIndicator();
+            chatWidget.addMessage(response, 'bot');
+            chatWidget.state.isTyping = false;
+
+            setTimeout(() => {
+                chatWidget.disableChat();
+            }, 4000);
+        }, 1500);
+    },
+
+    // Désactiver le chat
+    disableChat: () => {
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+        if (chatInput) {
+            chatInput.disabled = true;
+            chatInput.placeholder = 'Chat fermé';
+        }
+        if (chatSend) chatSend.disabled = true;
+
+        setTimeout(() => {
+            chatWidget.closeChat();
+        }, 3000);
+    },
+
+    // Générer une réponse automatique du bot
+    generateBotResponse: (userMessage) => {
+        if (chatWidget.state.isTyping || chatWidget.state.isClosed) return;
+
+        chatWidget.state.exchangeCount++;
+        chatWidget.state.isTyping = true;
+        chatWidget.showTypingIndicator();
+
+        const lowerMessage = userMessage.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+        // Vérifier les propos inappropriés
+        if (chatWidget.containsInappropriateContent(userMessage)) {
+            setTimeout(() => {
+                chatWidget.hideTypingIndicator();
+                chatWidget.closeChatWithMessage('inappropriate');
+            }, 1000);
+            return;
         }
 
-        // Sélectionner une réponse aléatoire dans la catégorie
-        const responses = chatWidget.botResponses[responseCategory];
-        const response  = responses[Math.floor(Math.random() * responses.length)];
+        // Vérifier la limite d'échanges
+        if (chatWidget.state.exchangeCount >= chatWidget.config.maxExchanges) {
+            setTimeout(() => {
+                chatWidget.hideTypingIndicator();
+                chatWidget.closeChatWithMessage('closing');
+            }, 1000);
+            return;
+        }
 
-        // Simuler le temps de frappe
+        // Vérifier si la conversation approche de la limite (avant-dernier échange)
+        if (chatWidget.state.exchangeCount === chatWidget.config.maxExchanges - 1) {
+            const closingMsg = "Je vous remercie pour cet échange. Pour aller plus loin, je vous invite à utiliser le formulaire de contact. Une question complémentaire ?";
+            setTimeout(() => {
+                chatWidget.hideTypingIndicator();
+                chatWidget.addMessage(closingMsg, 'bot');
+                chatWidget.state.isTyping = false;
+            }, 1500);
+            return;
+        }
+
+        // Analyser le message
+        let responseCategory = 'default';
+
+        if (lowerMessage.includes('bonjour') || lowerMessage.includes('bonsoir') || lowerMessage.includes('salut') || lowerMessage.includes('hello')) {
+            responseCategory = 'greetings';
+        } else if (lowerMessage.includes('service') || lowerMessage.includes('offre') || lowerMessage.includes('propose')) {
+            responseCategory = 'services';
+        } else if (lowerMessage.includes('prix') || lowerMessage.includes('tarif') || lowerMessage.includes('cout') || lowerMessage.includes('devis') || lowerMessage.includes('budget') || lowerMessage.includes('combien')) {
+            responseCategory = 'pricing';
+        } else if (lowerMessage.includes('contact') || lowerMessage.includes('contacter') || lowerMessage.includes('joindre') || lowerMessage.includes('email') || lowerMessage.includes('telephone')) {
+            responseCategory = 'contact';
+        } else if (lowerMessage.includes('formation') || lowerMessage.includes('apprendre') || lowerMessage.includes('cours') || lowerMessage.includes('former')) {
+            responseCategory = 'training';
+        }
+
+        const responses = chatWidget.botResponses[responseCategory];
+        const response = responses[Math.floor(Math.random() * responses.length)];
+
         setTimeout(() => {
             chatWidget.hideTypingIndicator();
             chatWidget.addMessage(response, 'bot');
@@ -332,7 +414,7 @@ const chatWidget = {
         const typingDiv = document.createElement('div');
         typingDiv.className = 'chat-message chat-message-bot typing-indicator';
         typingDiv.innerHTML = `
-            <div class="message-avatar">🤖</div>
+            <div class="message-avatar"><i class="fas fa-briefcase"></i></div>
             <div class="message-content">
                 <div class="typing-dots">
                     <span></span>
@@ -551,7 +633,7 @@ const chatWidget = {
             chatWidget.updateUnreadCount();
 
             setTimeout(() => {
-                chatWidget.addMessage("Bonjour ! Je suis disponible pour répondre à vos questions sur Odoo. 😊", 'bot');
+                chatWidget.addMessage("Bonjour, je suis disponible pour répondre à vos questions sur Odoo.", 'bot');
             }, 2000);
         }
     }
@@ -620,13 +702,13 @@ const chatStyles = `
     .chat-message-user { flex-direction: row-reverse; }
 
     .message-avatar {
-        width: 35px;
-        height: 35px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 16px;
+        font-size: 15px;
         flex-shrink: 0;
         background: var(--primary-blue);
         color: white;
