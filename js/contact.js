@@ -68,6 +68,10 @@ const contactForm = {
                 required: true,
                 pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
             },
+            phone: {
+                required: false,
+                pattern: /^[\d\s\-\+\(\)]+$/
+            },
             subject: {
                 required: true
             },
