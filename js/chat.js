@@ -17,8 +17,6 @@ const utils = {
 const chatWidget = {
     // Configuration
     config: {
-        apiEndpoint: '/api/chat/messages',
-        refreshInterval: 3000,
         maxMessages: 50,
         maxExchanges: 8,
         typingTimeout: 1000,
@@ -83,10 +81,7 @@ const chatWidget = {
         chatWidget.generateSessionId();
         chatWidget.setupUI();
         chatWidget.setupEventListeners();
-        chatWidget.loadChatHistory();
-        chatWidget.startAutoRefresh();
 
-        // Afficher la notification initiale après un délai
         setTimeout(() => {
             chatWidget.showInitialNotification();
         }, 5000);
@@ -157,11 +152,7 @@ const chatWidget = {
 
         // Gérer la visibilité de la page
         document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                chatWidget.stopAutoRefresh();
-            } else {
-                chatWidget.startAutoRefresh();
-            }
+            // nothing
         });
     },
 
@@ -472,46 +463,6 @@ const chatWidget = {
     markMessagesAsRead: () => {
         chatWidget.state.unreadCount = 0;
         chatWidget.updateUnreadCount();
-
-        chatWidget.state.messages.forEach(message => {
-            if (!message.is_read && message.sender === 'bot') {
-                chatWidget.markMessageAsRead(message.id);
-            }
-        });
-    },
-
-    // Marquer un message comme lu (API)
-    markMessageAsRead: async (messageId) => {
-        try {
-            await fetch(`${chatWidget.config.apiEndpoint}/${messageId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ is_read: true })
-            });
-        } catch (error) {
-            console.warn('Erreur lors de la mise à jour du message:', error);
-        }
-    },
-
-    // Charger l'historique du chat
-    loadChatHistory: async () => {
-        try {
-            const response = await fetch(
-                `${chatWidget.config.apiEndpoint}?session_id=${chatWidget.state.sessionId}&limit=10&sort=timestamp:desc`
-            );
-            const data = await response.json();
-
-            if (data.data && data.data.length > 0) {
-                const messages = data.data.reverse();
-                messages.forEach(message => {
-                    chatWidget.state.messages.push(message);
-                    chatWidget.renderMessage(message);
-                });
-                chatWidget.scrollToBottom();
-            }
-        } catch (error) {
-            console.warn('Erreur lors du chargement de l\'historique:', error);
-        }
     },
 
     // Afficher un message dans l'interface
@@ -523,108 +474,8 @@ const chatWidget = {
         chatBody.appendChild(messageElement);
     },
 
-    // Sauvegarder un message (API)
-    saveMessage: async (message) => {
-        try {
-            await fetch(chatWidget.config.apiEndpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message_type: message.sender,
-                    content: message.content,
-                    timestamp: message.timestamp,
-                    visitor_ip: await chatWidget.getClientIP(),
-                    user_agent: navigator.userAgent,
-                    session_id: message.sessionId,
-                    is_read: false
-                })
-            });
-        } catch (error) {
-            console.warn('Erreur lors de la sauvegarde du message:', error);
-        }
-    },
-
-    // Obtenir l'IP du client
-    getClientIP: async () => {
-        try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            const data = await response.json();
-            return data.ip;
-        } catch {
-            return 'unknown';
-        }
-    },
-
-    // Démarrer le rafraîchissement automatique
-    startAutoRefresh: () => {
-        if (chatWidget.refreshIntervalId) return;
-
-        chatWidget.refreshIntervalId = setInterval(() => {
-            if (chatWidget.state.isOpen) {
-                chatWidget.loadNewMessages();
-            }
-        }, chatWidget.config.refreshInterval);
-    },
-
-    // Arrêter le rafraîchissement automatique
-    stopAutoRefresh: () => {
-        if (chatWidget.refreshIntervalId) {
-            clearInterval(chatWidget.refreshIntervalId);
-            chatWidget.refreshIntervalId = null;
-        }
-    },
-
-    // Charger les nouveaux messages
-    loadNewMessages: async () => {
-        try {
-            const lastMessage   = chatWidget.state.messages[chatWidget.state.messages.length - 1];
-            const lastTimestamp = lastMessage ? lastMessage.timestamp : new Date(0).toISOString();
-
-            const response = await fetch(
-                `${chatWidget.config.apiEndpoint}?session_id=${chatWidget.state.sessionId}&timestamp_gt=${lastTimestamp}&sort=timestamp:asc`
-            );
-            const data = await response.json();
-
-            if (data.data && data.data.length > 0) {
-                data.data.forEach(message => {
-                    if (!chatWidget.state.messages.find(m => m.id === message.id)) {
-                        chatWidget.state.messages.push(message);
-                        chatWidget.renderMessage(message);
-
-                        if (message.sender === 'bot') {
-                            chatWidget.playNotificationSound();
-                        }
-                    }
-                });
-                chatWidget.scrollToBottom();
-            }
-        } catch (error) {
-            console.warn('Erreur lors du chargement des nouveaux messages:', error);
-        }
-    },
-
-    // Jouer un son de notification
-    playNotificationSound: () => {
-        if (localStorage.getItem('chatSoundEnabled') !== 'false') {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator   = audioContext.createOscillator();
-                const gainNode     = audioContext.createGain();
-
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-
-                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.3);
-            } catch (error) {
-                console.warn('Erreur lors de la lecture du son:', error);
-            }
-        }
-    },
+    // Sauvegarder un message (local uniquement)
+    saveMessage: () => {},
 
     // Afficher la notification initiale
     showInitialNotification: () => {

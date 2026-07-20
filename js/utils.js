@@ -66,13 +66,21 @@ const utils = {
             info:    'fas fa-info-circle'
         };
 
-        toast.innerHTML = `
-            <i class="${icons[type] || icons.info}"></i>
-            <span>${message}</span>
-            <button class="toast-close" aria-label="Fermer">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
+        const iconEl = document.createElement('i');
+        iconEl.className = icons[type] || icons.info;
+        toast.appendChild(iconEl);
+
+        const spanEl = document.createElement('span');
+        spanEl.textContent = message;
+        toast.appendChild(spanEl);
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'toast-close';
+        closeBtn.setAttribute('aria-label', 'Fermer');
+        const closeIcon = document.createElement('i');
+        closeIcon.className = 'fas fa-times';
+        closeBtn.appendChild(closeIcon);
+        toast.appendChild(closeBtn);
 
         // Bouton de fermeture
         toast.querySelector('.toast-close').addEventListener('click', () => {

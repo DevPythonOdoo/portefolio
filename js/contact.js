@@ -29,7 +29,11 @@ function showNotification(message, type = 'success', duration = 4000) {
         color: #fff;
         border-left: ${type === 'success' ? '4px solid #2e7d32' : '4px solid #b71c1c'};
     `;
-    notif.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}" style="font-size: 20px;"></i> ${message}`;
+    const iconEl = document.createElement('i');
+    iconEl.className = `fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}`;
+    iconEl.style.fontSize = '20px';
+    notif.appendChild(iconEl);
+    notif.appendChild(document.createTextNode(' ' + message));
 
     if (!document.getElementById('notif-anim-style')) {
         const s = document.createElement('style');
@@ -332,22 +336,18 @@ const contactForm = {
         }
     },
 
-    // Sauvegarde automatique
+    // Sauvegarde automatique (30 min max)
     setupAutoSave: () => {
         const form = document.getElementById('contact-form');
         if (!form) return;
 
         const saveToLocalStorage = debounce(() => {
-            // Ne pas sauvegarder si le formulaire est vide après envoi
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             
-            // Vérifier si au moins un champ non vide
             const hasContent = Object.values(data).some(val => val && val.trim() !== '');
             
             if (hasContent) {
-                delete data.consent;
-                localStorage.setItem('contactFormData', JSON.stringify(data));
                 localStorage.setItem('contactFormTimestamp', new Date().toISOString());
             }
         }, 2000);
@@ -358,23 +358,20 @@ const contactForm = {
         contactForm.restoreFormData();
     },
 
-    // Restaurer les données
+    // Restaurer les données (30 min max)
     restoreFormData: () => {
-        const savedData = localStorage.getItem('contactFormData');
         const timestamp = localStorage.getItem('contactFormTimestamp');
+        const savedData = localStorage.getItem('contactFormData');
         
         if (savedData && timestamp) {
             const data = JSON.parse(savedData);
             const timeDiff = new Date() - new Date(timestamp);
             
-            // Restaurer seulement si les données ont moins de 24h
-            if (timeDiff < 24 * 60 * 60 * 1000) {
+            if (timeDiff < 30 * 60 * 1000) {
                 Object.keys(data).forEach(key => {
                     const field = document.querySelector(`[name="${key}"]`);
                     if (field && data[key]) {
                         field.value = data[key];
-                        
-                        // Déclencher l'événement input pour les ajustements
                         field.dispatchEvent(new Event('input', { bubbles: true }));
                     }
                 });

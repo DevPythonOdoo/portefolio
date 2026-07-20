@@ -10,6 +10,12 @@ const sanitizeHTML = (str) => {
     return el.innerHTML;
 };
 
+const sanitizeURL = (url) => {
+    if (!url) return '';
+    if (url.startsWith('javascript:') || url.startsWith('data:text/html') || url.startsWith('vbscript:')) return '';
+    return url;
+};
+
 const truncate = (str, len) => {
     if (!str) return '';
     return str.length > len ? str.substring(0, len).trimEnd() + '...' : str;
@@ -277,7 +283,7 @@ const portfolioModule = {
         
         const safeTitle = sanitizeHTML(project.title);
         const safeClient = sanitizeHTML(project.client_name);
-        const safeImg = sanitizeHTML(project.image_url);
+        const safeImg = sanitizeURL(project.image_url);
         const safeDesc = sanitizeHTML(truncate(project.description, 150));
         const safeId = sanitizeHTML(project.id);
         
@@ -344,13 +350,14 @@ const portfolioModule = {
         });
         
         const safe = (v) => sanitizeHTML(v || '');
+        const safeImg = sanitizeURL(project.image_url);
         
         modalBody.innerHTML = `
             <div class="project-modal-content">
                 <div class="project-modal-header">
                     <div class="project-modal-image">
-                        <img src="${safe(project.image_url)}" 
-                             alt="${safe(project.title)}">
+                <img src="${safeImg}" 
+                     alt="${safe(project.title)}">
                         <div class="project-modal-badge">${safe(project.category)}</div>
                     </div>
                     <div class="project-modal-info">
