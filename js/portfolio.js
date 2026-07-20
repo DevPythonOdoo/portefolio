@@ -19,7 +19,7 @@ const portfolioModule = {
     // Configuration
     config: {
         apiEndpoint: '/api/portfolio/projects',
-        itemsPerPage: 6,
+        itemsPerPage: 8,
         currentPage: 1,
         currentFilter: 'all'
     },
@@ -123,9 +123,9 @@ const portfolioModule = {
         },
         {
             id: '6',
-            title: 'Développemen spécifique',
+            title: 'Développement spécifique',
             category: 'Customization',
-            description: 'Customisation du module POS pour une entreprise de poker. La personnalisation a inclus la création de flux de travail spécifiques pour la gestion de la société, l’intégration de fonctionnalités de suivi des boissons offertes ou non offertes, ainsi que l’ajout de rapports personnalisés pour le suivi de la performance des ventes sur la journée. Chaque caissière devrait voir uniquent leur session en cour et les ventes qui y sont associées. La solution a permis à l’entreprise d’optimiser ses processus de vente, d’améliorer la traçabilité des produits et d’augmenter l’efficacité globale de ses opérations.',
+            description: 'Customisation du module POS pour une entreprise de poker. La personnalisation a inclus la création de flux de travail spécifiques pour la gestion de la société, l’intégration de fonctionnalités de suivi des boissons offertes ou non offertes, ainsi que l’ajout de rapports personnalisés pour le suivi de la performance des ventes sur la journée. Chaque caissière devrait voir uniquement leur session en cours et les ventes qui y sont associées. La solution a permis à l’entreprise d’optimiser ses processus de vente, d’améliorer la traçabilité des produits et d’augmenter l’efficacité globale de ses opérations.',
             client_name: 'Terroubi',
             client_industry: 'Poker',
             project_duration: '3 mois',
@@ -142,22 +142,22 @@ const portfolioModule = {
         },
         {
             id: '7',
-            title: 'Application Mobile KDM',
-            category: 'development',
-            description: 'Développement d\'une application mobile cross-platform avec Flutter pour KDM, connectée à Odoo via API REST. L\'application permet la gestion des commandes, le suivi des livraisons en temps réel, la consultation des stocks et la validation des paiements depuis le terrain. Interface moderne et intuitive adaptée aux besoins des livreurs et commerciaux itinérants.',
+            title: 'Personnalisation complète Odoo — KDM',
+            category: 'customization',
+            description: 'Personnalisation complète des modules Odoo (Achat, Vente, Projet, Dépense, Service sur site, Stock, Fabrication, Employé) pour KDM, entreprise spécialisée dans l\'aération et le froid. Les templates et flux de travail ont été retravaillés pour correspondre aux exigences spécifiques de l\'entreprise.',
             client_name: 'KDM',
-            client_industry: 'Distribution & Logistique',
-            project_duration: '6 mois',
+            client_industry: 'Aération & Froid',
+            project_duration: '4 mois',
             odoo_version: '19.0',
-            modules_affected: ['Achat', 'Vente', 'Stock', 'Dépense', 'Project', 'Service sur site', 'Fabrication'],
+            modules_affected: ['Achat', 'Vente', 'Projet', 'Dépense', 'Service sur site', 'Stock', 'Fabrication', 'Employé'],
             technologies: ['Python', 'PostgreSQL', 'JavaScript', 'XML', 'QWeb', 'Odoo SH'],
             results: 'Automatisation complète des processus achats, ventes et fabrication. Réduction de 40% des délais de production, traçabilité totale des matières premières et optimisation des stocks avec un taux de rupture réduit à 2%.',
             challenge: 'L\'entreprise gérait ses opérations sur plusieurs outils déconnectés (Excel, logiciel comptable séparé, carnets de production papier), rendant le suivi des commandes, de la production et des coûts complexe et source d\'erreurs fréquentes.',
-            solution: 'Déploiement complet d\'Odoo couvrant l\'ensemble des processus métiers : achats automatisés avec règles de réapprovisionnement, gestion des ventes multi-devises, suivi de production par ordres de fabrication, gestion des services sur site avec planning intégré, et centralisation de toutes les dépenses dans un tableau de bord analytique.',
+            solution: 'Déploiement complet d\'Odoo couvrant l\'ensemble des processus métiers : achats automatisés avec règles de réapprovisionnement, gestion des ventes multi-devises, suivi de production par ordres de fabrication, gestion des services sur site avec planning intégré, et centralisation de toutes les dépenses dans un tableau de bord analytique. Gestion de tous les départements et utilisateurs avec des droits d\'accès spécifiques pour garantir la sécurité des données.',
             completion_date: '2025-02-28T00:00:00.000Z',
             is_featured: true,
             status: 'completed',
-            image_url: 'images/KD.jpg'
+            image_url: 'images/image.png'
         }
     ],
 
@@ -267,11 +267,6 @@ const portfolioModule = {
             const projectElement = portfolioModule.createProjectElement(project);
             portfolioGrid.appendChild(projectElement);
         });
-        
-        // Ajouter la pagination si nécessaire
-        if (filteredProjects.length > portfolioModule.config.itemsPerPage) {
-            portfolioModule.renderPagination(filteredProjects.length);
-        }
     },
 
     // Créer un élément de projet
