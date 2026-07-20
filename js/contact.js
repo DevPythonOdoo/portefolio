@@ -64,14 +64,6 @@ const contactForm = {
                 required: true,
                 pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
             },
-            phone: {
-                required: false,
-                pattern: /^[\d\s\-\+\(\)]+$/
-            },
-            company: {
-                required: false,
-                maxLength: 100
-            },
             subject: {
                 required: true
             },
@@ -79,9 +71,6 @@ const contactForm = {
                 required: true,
                 minLength: 20,
                 maxLength: 2000
-            },
-            consent: {
-                required: true
             }
         }
     },
@@ -135,12 +124,6 @@ const contactForm = {
             }
         });
 
-        // Masque téléphone
-        const phoneInput = document.getElementById('phone');
-        if (phoneInput) {
-            contactForm.setupPhoneMask(phoneInput);
-        }
-
         // Auto-hauteur textarea
         const messageTextarea = document.getElementById('message');
         if (messageTextarea) {
@@ -149,29 +132,6 @@ const contactForm = {
                 e.target.style.height = e.target.scrollHeight + 'px';
             });
         }
-    },
-
-    // Masque téléphone
-    setupPhoneMask: (input) => {
-        input.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            
-            if (value.length > 0) {
-                if (value.length <= 2) {
-                    value = value;
-                } else if (value.length <= 4) {
-                    value = value.slice(0, 2) + ' ' + value.slice(2);
-                } else if (value.length <= 6) {
-                    value = value.slice(0, 2) + ' ' + value.slice(2, 4) + ' ' + value.slice(4);
-                } else if (value.length <= 8) {
-                    value = value.slice(0, 2) + ' ' + value.slice(2, 4) + ' ' + value.slice(4, 6) + ' ' + value.slice(6);
-                } else {
-                    value = value.slice(0, 2) + ' ' + value.slice(2, 4) + ' ' + value.slice(4, 6) + ' ' + value.slice(6, 8) + ' ' + value.slice(8, 10);
-                }
-            }
-            
-            e.target.value = value;
-        });
     },
 
     // Validation en temps réel
@@ -187,7 +147,7 @@ const contactForm = {
                 contactForm.clearFieldError(input.name);
             });
             
-            if (input.type === 'email' || input.name === 'phone') {
+            if (input.type === 'email') {
                 input.addEventListener('input', debounce(() => {
                     contactForm.validateField(input.name, input.value);
                 }, 500));
